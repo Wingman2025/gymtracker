@@ -1,0 +1,24 @@
+{
+  "exercises": [
+    {"name_es": "Sentadilla trasera", "name_en": "Back Squat", "category": "powerlifting"},
+    {"name_es": "Press de banca", "name_en": "Bench Press", "category": "powerlifting"},
+    {"name_es": "Peso muerto", "name_en": "Deadlift", "category": "powerlifting"},
+    {"name_es": "Press militar", "name_en": "Overhead Press", "category": "powerlifting"},
+    {"name_es": "Sentadilla frontal", "name_en": "Front Squat", "category": "weightlifting"},
+    {"name_es": "Arranque", "name_en": "Snatch", "category": "weightlifting"},
+    {"name_es": "Cargada", "name_en": "Clean", "category": "weightlifting"},
+    {"name_es": "Cargada y envion", "name_en": "Clean & Jerk", "category": "weightlifting"},
+    {"name_es": "Power snatch", "name_en": "Power Snatch", "category": "weightlifting"},
+    {"name_es": "Power clean", "name_en": "Power Clean", "category": "weightlifting"},
+    {"name_es": "Tiron de arranque", "name_en": "Snatch Pull", "category": "weightlifting"},
+    {"name_es": "Tiron de cargada", "name_en": "Clean Pull", "category": "weightlifting"},
+    {"name_es": "Good morning", "name_en": "Good Morning", "category": "accessory"},
+    {"name_es": "Remo con barra", "name_en": "Barbell Row", "category": "accessory"},
+    {"name_es": "Zancadas", "name_en": "Lunges", "category": "accessory"},
+    {"name_es": "Fondos", "name_en": "Dips", "category": "accessory"},
+    {"name_es": "Dominadas", "name_en": "Pull-ups", "category": "accessory"},
+    {"name_es": "Hip thrust", "name_en": "Hip Thrust", "category": "accessory"},
+    {"name_es": "Extensiones de espalda", "name_en": "Back Extensions", "category": "accessory"},
+    {"name_es": "Plancha", "name_en": "Plank", "category": "accessory"}
+  ]
+}

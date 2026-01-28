@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gym Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">Powerlifting + Weightlifting</p>
+          <h1 data-i18n="title">Registro de levantamientos</h1>
+          <p class="sub" data-i18n="subtitle">
+            Guarda tus sesiones, controla tiempos por set y administra ejercicios.
+          </p>
+        </div>
+        <div class="lang-toggle">
+          <span data-i18n="language">Idioma</span>
+          <button type="button" class="chip" data-lang="es">ES</button>
+          <button type="button" class="chip" data-lang="en">EN</button>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <h2 data-i18n="log_title">Nuevo registro</h2>
+          <form id="entry-form" class="form">
+            <label>
+              <span data-i18n="exercise">Ejercicio</span>
+              <select id="exercise-select" required></select>
+            </label>
+            <div class="row">
+              <label>
+                <span data-i18n="weight">Peso (kg)</span>
+                <input id="weight-input" type="number" min="0" step="0.5" required />
+              </label>
+              <label>
+                <span data-i18n="reps">Reps</span>
+                <input id="reps-input" type="number" min="1" step="1" required />
+              </label>
+              <label>
+                <span data-i18n="sets">Sets</span>
+                <input id="sets-input" type="number" min="1" step="1" required />
+              </label>
+            </div>
+            <div class="row">
+              <label>
+                <span data-i18n="rpe">RPE (0-10)</span>
+                <input id="rpe-input" type="number" min="0" max="10" step="0.5" />
+              </label>
+              <label>
+                <span data-i18n="date">Fecha</span>
+                <input id="date-input" type="date" required />
+              </label>
+            </div>
+            <label>
+              <span data-i18n="notes">Notas</span>
+              <textarea id="notes-input" rows="2" data-i18n-placeholder="notes_placeholder"></textarea>
+            </label>
+            <button class="primary" type="submit" data-i18n="save_entry">Guardar</button>
+            <p id="status" class="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="card timer">
+          <h2 data-i18n="timer_title">Temporizador por set</h2>
+          <p class="muted" data-i18n="timer_desc">
+            Elige un tiempo y controla tu descanso entre sets.
+          </p>
+          <div class="timer-display" id="timer-display">01:30</div>
+          <div class="row">
+            <label>
+              <span data-i18n="duration">Duracion (seg)</span>
+              <input id="timer-duration" type="number" min="10" step="5" value="90" />
+            </label>
+            <label>
+              <span data-i18n="planned_sets">Sets planeados</span>
+              <input id="planned-sets" type="number" min="1" step="1" value="3" />
+            </label>
+          </div>
+          <div class="preset-row">
+            <button type="button" class="chip preset" data-seconds="60">60s</button>
+            <button type="button" class="chip preset" data-seconds="90">90s</button>
+            <button type="button" class="chip preset" data-seconds="120">120s</button>
+            <button type="button" class="chip preset" data-seconds="180">180s</button>
+          </div>
+          <div class="row">
+            <button type="button" class="primary" id="timer-start" data-i18n="start">Iniciar</button>
+            <button type="button" class="ghost" id="timer-stop" data-i18n="pause">Pausar</button>
+            <button type="button" class="ghost" id="timer-reset" data-i18n="reset">Reiniciar</button>
+          </div>
+          <div class="set-progress">
+            <span data-i18n="set_progress">Set</span>
+            <strong id="set-count">1 / 3</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <h2 data-i18n="entries_title">Registros recientes</h2>
+          <table class="entries">
+            <thead>
+              <tr>
+                <th data-i18n="date">Fecha</th>
+                <th data-i18n="exercise">Ejercicio</th>
+                <th data-i18n="weight">Peso (kg)</th>
+                <th data-i18n="sets_reps">Sets x Reps</th>
+                <th data-i18n="rpe">RPE</th>
+                <th data-i18n="notes">Notas</th>
+                <th data-i18n="actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="entries-body"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2 data-i18n="exercises_title">Ejercicios sugeridos</h2>
+          <p class="muted" data-i18n="exercises_desc">
+            Puedes agregar tu propio ejercicio bilingue.
+          </p>
+          <ul id="exercise-list" class="exercise-list"></ul>
+          <form id="exercise-form" class="form">
+            <div class="row">
+              <label>
+                <span data-i18n="name_es">Nombre (ES)</span>
+                <input id="exercise-name-es" type="text" required />
+              </label>
+              <label>
+                <span data-i18n="name_en">Nombre (EN)</span>
+                <input id="exercise-name-en" type="text" required />
+              </label>
+            </div>
+            <label>
+              <span data-i18n="category">Categoria</span>
+              <select id="exercise-category">
+                <option value="powerlifting" data-i18n="cat_powerlifting">Powerlifting</option>
+                <option value="weightlifting" data-i18n="cat_weightlifting">Weightlifting</option>
+                <option value="accessory" data-i18n="cat_accessory">Accesorios</option>
+              </select>
+            </label>
+            <button class="primary" type="submit" data-i18n="add_exercise">Agregar ejercicio</button>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
