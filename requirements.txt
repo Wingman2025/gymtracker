@@ -1,1 +1,4 @@
--r backend/requirements.txt
+fastapi>=0.110
+uvicorn[standard]>=0.23
+SQLAlchemy>=2.0
+pydantic>=2.0
