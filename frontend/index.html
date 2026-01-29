@@ -16,10 +16,16 @@
             Guarda tus sesiones, controla tiempos por set y administra ejercicios.
           </p>
         </div>
-        <div class="lang-toggle">
-          <span data-i18n="language">Idioma</span>
-          <button type="button" class="chip" data-lang="es">ES</button>
-          <button type="button" class="chip" data-lang="en">EN</button>
+        <div class="header-controls">
+          <div class="lang-toggle">
+            <span data-i18n="language">Idioma</span>
+            <button type="button" class="chip" data-lang="es">ES</button>
+            <button type="button" class="chip" data-lang="en">EN</button>
+          </div>
+          <div class="theme-toggle">
+            <span data-i18n="theme">Tema</span>
+            <button type="button" class="chip" id="theme-toggle">Oscuro</button>
+          </div>
         </div>
       </header>
 
@@ -101,20 +107,22 @@
       <section class="grid">
         <div class="card">
           <h2 data-i18n="entries_title">Registros recientes</h2>
-          <table class="entries">
-            <thead>
-              <tr>
-                <th data-i18n="date">Fecha</th>
-                <th data-i18n="exercise">Ejercicio</th>
-                <th data-i18n="weight">Peso (kg)</th>
-                <th data-i18n="sets_reps">Sets x Reps</th>
-                <th data-i18n="rpe">RPE</th>
-                <th data-i18n="notes">Notas</th>
-                <th data-i18n="actions">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="entries-body"></tbody>
-          </table>
+          <div class="table-wrap">
+            <table class="entries">
+              <thead>
+                <tr>
+                  <th data-i18n="date">Fecha</th>
+                  <th data-i18n="exercise">Ejercicio</th>
+                  <th data-i18n="weight">Peso (kg)</th>
+                  <th data-i18n="sets_reps">Sets x Reps</th>
+                  <th data-i18n="rpe">RPE</th>
+                  <th data-i18n="notes">Notas</th>
+                  <th data-i18n="actions">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="entries-body"></tbody>
+            </table>
+          </div>
         </div>
 
         <div class="card">

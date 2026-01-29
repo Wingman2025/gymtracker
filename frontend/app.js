@@ -4,6 +4,9 @@ const I18N = {
     title: "Registro de levantamientos",
     subtitle: "Guarda tus sesiones, controla tiempos por set y administra ejercicios.",
     language: "Idioma",
+    theme: "Tema",
+    theme_dark: "Oscuro",
+    theme_light: "Claro",
     log_title: "Nuevo registro",
     exercise: "Ejercicio",
     weight: "Peso (kg)",
@@ -45,6 +48,9 @@ const I18N = {
     title: "Strength log",
     subtitle: "Save sessions, control set timers, and manage exercises.",
     language: "Language",
+    theme: "Theme",
+    theme_dark: "Dark",
+    theme_light: "Light",
     log_title: "New entry",
     exercise: "Exercise",
     weight: "Weight (kg)",
@@ -85,6 +91,7 @@ const I18N = {
 
 const state = {
   lang: localStorage.getItem("lang") || "es",
+  theme: localStorage.getItem("theme") || "system",
   exercises: [],
   entries: [],
   timer: {
@@ -119,7 +126,8 @@ const elements = {
   timerReset: document.getElementById("timer-reset"),
   presetButtons: document.querySelectorAll(".preset"),
   plannedSets: document.getElementById("planned-sets"),
-  setCount: document.getElementById("set-count")
+  setCount: document.getElementById("set-count"),
+  themeToggle: document.getElementById("theme-toggle")
 };
 
 function t(key) {
@@ -136,6 +144,33 @@ function applyI18n() {
     const key = node.dataset.i18nPlaceholder;
     node.placeholder = t(key);
   });
+  updateThemeToggleLabel();
+}
+
+function getEffectiveTheme() {
+  if (state.theme === "light" || state.theme === "dark") {
+    return state.theme;
+  }
+  if (window.matchMedia) {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  return "light";
+}
+
+function applyTheme() {
+  if (state.theme === "light" || state.theme === "dark") {
+    document.documentElement.dataset.theme = state.theme;
+  } else {
+    delete document.documentElement.dataset.theme;
+  }
+  updateThemeToggleLabel();
+}
+
+function updateThemeToggleLabel() {
+  if (!elements.themeToggle) return;
+  const effectiveTheme = getEffectiveTheme();
+  const nextLabel = effectiveTheme === "dark" ? t("theme_light") : t("theme_dark");
+  elements.themeToggle.textContent = nextLabel;
 }
 
 function setStatus(message) {
@@ -355,6 +390,7 @@ function setLanguage(lang) {
 
 function init() {
   applyI18n();
+  applyTheme();
   const today = new Date().toISOString().slice(0, 10);
   elements.dateInput.value = today;
   elements.timerDuration.value = state.timer.duration;
@@ -364,6 +400,26 @@ function init() {
   document.querySelectorAll("[data-lang]").forEach((btn) => {
     btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
   });
+
+  if (elements.themeToggle) {
+    elements.themeToggle.addEventListener("click", () => {
+      const effectiveTheme = getEffectiveTheme();
+      state.theme = effectiveTheme === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", state.theme);
+      applyTheme();
+    });
+  }
+
+  if (window.matchMedia) {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    if (media.addEventListener) {
+      media.addEventListener("change", () => {
+        if (state.theme === "system") {
+          updateThemeToggleLabel();
+        }
+      });
+    }
+  }
 
   elements.entryForm.addEventListener("submit", async (event) => {
     event.preventDefault();

@@ -1,6 +1,8 @@
 :root {
   --bg-1: #f6f0e8;
   --bg-2: #eef6ff;
+  --bg-3: #fdfdfb;
+  --bg-spot: #fff4db;
   --card: #ffffff;
   --ink: #1a1f2b;
   --muted: #566070;
@@ -9,6 +11,12 @@
   --warm: #f2b550;
   --border: #e1e5ec;
   --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --input-bg: #ffffff;
+  --input-ink: #1a1f2b;
+  --chip-bg: #ffffff;
+  --table-hover: #f7fafc;
+  --exercise-bg: #fbfcff;
+  --timer-bg: linear-gradient(145deg, #ffffff, #fff7ec);
 }
 
 * {
@@ -21,8 +29,8 @@ body {
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
   color: var(--ink);
   background: radial-gradient(circle at top left, var(--bg-2), transparent 45%),
-    radial-gradient(circle at 20% 20%, #fff4db, transparent 30%),
-    linear-gradient(135deg, var(--bg-1), #fdfdfb 60%);
+    radial-gradient(circle at 20% 20%, var(--bg-spot), transparent 30%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-3) 60%);
 }
 
 .app {
@@ -64,6 +72,21 @@ body {
 }
 
 .lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.header-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.theme-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -113,7 +136,8 @@ textarea {
   border: 1px solid var(--border);
   font-size: 0.95rem;
   font-family: inherit;
-  background: #fff;
+  background: var(--input-bg);
+  color: var(--input-ink);
 }
 
 textarea {
@@ -155,12 +179,12 @@ textarea {
   border-radius: 999px;
   padding: 6px 12px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--chip-bg);
   cursor: pointer;
 }
 
 .timer {
-  background: linear-gradient(145deg, #fff, #fff7ec);
+  background: var(--timer-bg);
 }
 
 .timer-display {
@@ -186,6 +210,7 @@ textarea {
 
 .entries {
   width: 100%;
+  min-width: 720px;
   border-collapse: collapse;
   font-size: 0.9rem;
 }
@@ -198,7 +223,13 @@ textarea {
 }
 
 .entries tbody tr:hover {
-  background: #f7fafc;
+  background: var(--table-hover);
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .exercise-list {
@@ -216,7 +247,7 @@ textarea {
   padding: 10px 12px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: #fbfcff;
+  background: var(--exercise-bg);
 }
 
 .exercise-item span {
@@ -238,9 +269,78 @@ textarea {
   margin: 0 0 12px;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-1: #0b1016;
+    --bg-2: #101b2d;
+    --bg-3: #0a0f14;
+    --bg-spot: #142235;
+    --card: #0f172a;
+    --ink: #e5e7eb;
+    --muted: #9aa4b2;
+    --accent: #2bb7c7;
+    --accent-dark: #1593a2;
+    --warm: #e2a94f;
+    --border: #1f2937;
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    --input-bg: #0b1320;
+    --input-ink: #e5e7eb;
+    --chip-bg: #0b1320;
+    --table-hover: #111f33;
+    --exercise-bg: #0c1626;
+    --timer-bg: linear-gradient(145deg, #0f172a, #122036);
+  }
+}
+
+:root[data-theme="light"] {
+  --bg-1: #f6f0e8;
+  --bg-2: #eef6ff;
+  --bg-3: #fdfdfb;
+  --bg-spot: #fff4db;
+  --card: #ffffff;
+  --ink: #1a1f2b;
+  --muted: #566070;
+  --accent: #1b9aaa;
+  --accent-dark: #157985;
+  --warm: #f2b550;
+  --border: #e1e5ec;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --input-bg: #ffffff;
+  --input-ink: #1a1f2b;
+  --chip-bg: #ffffff;
+  --table-hover: #f7fafc;
+  --exercise-bg: #fbfcff;
+  --timer-bg: linear-gradient(145deg, #ffffff, #fff7ec);
+}
+
+:root[data-theme="dark"] {
+  --bg-1: #0b1016;
+  --bg-2: #101b2d;
+  --bg-3: #0a0f14;
+  --bg-spot: #142235;
+  --card: #0f172a;
+  --ink: #e5e7eb;
+  --muted: #9aa4b2;
+  --accent: #2bb7c7;
+  --accent-dark: #1593a2;
+  --warm: #e2a94f;
+  --border: #1f2937;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --input-bg: #0b1320;
+  --input-ink: #e5e7eb;
+  --chip-bg: #0b1320;
+  --table-hover: #111f33;
+  --exercise-bg: #0c1626;
+  --timer-bg: linear-gradient(145deg, #0f172a, #122036);
+}
+
 @media (max-width: 720px) {
   .hero {
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-controls {
     align-items: flex-start;
   }
 
